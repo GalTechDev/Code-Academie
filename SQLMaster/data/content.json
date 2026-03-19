@@ -1,0 +1,298 @@
+{
+    "lessons": [
+        {
+            "id": "intro",
+            "title": "Introduction & SELECT",
+            "category": "Bases",
+            "content": "## Bienvenue dans le monde des données !\n\nLe langage **SQL** (Structured Query Language) permet de communiquer avec des bases de données.\n\nLa commande la plus fondamentale est `SELECT`. Elle permet de récupérer des données.\n\n### Syntaxe :\n```sql\nSELECT colonne1, colonne2 FROM table;\n```\n\nPour tout sélectionner, on utilise `*` :\n```sql\nSELECT * FROM users;\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, email TEXT, age INTEGER); INSERT INTO users (username, email, age) VALUES ('alice_wonder', 'alice@example.com', 25), ('bob_builder', 'bob@example.com', 30), ('charlie_brown', 'charlie@gmail.com', 19);",
+            "exercise": {
+                "id": "ex_1_select_all",
+                "instruction": "Sélectionnez toutes les colonnes de la table `users`.",
+                "hint": "Utilisez SELECT * FROM ...",
+                "placeholder": "SELECT ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM users"
+                }
+            }
+        },
+        {
+            "id": "select_specific",
+            "title": "Sélectionner des Colonnes",
+            "category": "Bases",
+            "content": "Parfois, on ne veut pas toutes les infos, juste certaines colonnes spécifiques.\n\nCela permet de rendre les requêtes plus rapides et plus lisibles.\n\n### Exemple :\n```sql\nSELECT nom, email FROM utilisateurs;\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, email TEXT, age INTEGER); INSERT INTO users (username, email, age) VALUES ('alice_wonder', 'alice@example.com', 25), ('bob_builder', 'bob@example.com', 30), ('charlie_brown', 'charlie@gmail.com', 19);",
+            "exercise": {
+                "id": "ex_2_select_cols",
+                "instruction": "Affichez uniquement le `username` et l'`email` de tous les utilisateurs.",
+                "hint": "Séparez les noms de colonnes par une virgule.",
+                "placeholder": "SELECT username, ... FROM users",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT username, email FROM users"
+                }
+            }
+        },
+        {
+            "id": "where_clause",
+            "title": "Le Filtrage avec WHERE",
+            "category": "Filtrage",
+            "content": "La clause `WHERE` permet de filtrer les résultats selon une condition.\n\n### Opérateurs :\n- `=` : Égal\n- `>` : Supérieur\n- `<` : Inférieur\n- `<>` ou `!=` : Différent\n\n### Exemple :\n```sql\nSELECT * FROM products WHERE price > 100;\n```",
+            "setup": "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price DECIMAL(10,2), category TEXT); INSERT INTO products (name, price, category) VALUES ('Laptop Pro', 1200.00, 'Electronics'), ('Wireless Mouse', 25.50, 'Electronics'), ('Coffee Mug', 12.00, 'Home'), ('Desk Lamp', 45.00, 'Home'), ('Gaming Chair', 150.00, 'Furniture');",
+            "exercise": {
+                "id": "ex_3_where",
+                "instruction": "Trouvez tous les produits dont le prix est supérieur à 50.",
+                "hint": "Utilisez WHERE price > 50",
+                "placeholder": "SELECT * FROM products WHERE ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM products WHERE price > 50"
+                }
+            }
+        },
+        {
+            "id": "logical_operators",
+            "title": "Opérateurs Logiques (AND, OR)",
+            "category": "Filtrage",
+            "content": "On peut combiner plusieurs conditions avec `AND` (et) et `OR` (ou).\n\n- `AND` : Toutes les conditions doivent être vraies.\n- `OR` : Au moins une condition doit être vraie.\n\n### Exemple :\n```sql\nSELECT * FROM users WHERE age > 18 AND active = 1;\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, age INTEGER, active INTEGER); INSERT INTO users (username, age, active) VALUES ('Alice', 25, 1), ('Bob', 17, 1), ('Charlie', 30, 0), ('Dave', 20, 1);",
+            "exercise": {
+                "id": "ex_logical",
+                "instruction": "Trouvez les utilisateurs qui ont plus de 18 ans ET qui sont actifs (`active = 1`).",
+                "hint": "Utilisez WHERE age > 18 AND active = 1",
+                "placeholder": "SELECT * FROM users WHERE ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM users WHERE age > 18 AND active = 1"
+                }
+            }
+        },
+        {
+            "id": "like_operator",
+            "title": "Recherche avec LIKE",
+            "category": "Filtrage",
+            "content": "L'opérateur `LIKE` permet de rechercher des motifs dans du texte.\n\n- `%` : Remplace n'importe quelle chaîne de caractères.\n- `_` : Remplace un seul caractère.\n\n### Exemple :\n```sql\nSELECT * FROM users WHERE email LIKE '%@gmail.com';\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT); INSERT INTO users (email) VALUES ('john@gmail.com'), ('sarah@yahoo.com'), ('mike@hotmail.com'), ('emma@gmail.com');",
+            "exercise": {
+                "id": "ex_like",
+                "instruction": "Trouvez tous les utilisateurs dont l'email se termine par `@gmail.com`.",
+                "hint": "Utilisez LIKE '%@gmail.com'",
+                "placeholder": "SELECT * FROM users WHERE ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM users WHERE email LIKE '%@gmail.com'"
+                }
+            }
+        },
+        {
+            "id": "order_by",
+            "title": "Trier avec ORDER BY",
+            "category": "Tri",
+            "content": "Pour trier les résultats, on utilise `ORDER BY`.\n\n- `ASC` (par défaut) : Ascendant (A-Z, 0-9)\n- `DESC` : Descendant (Z-A, 9-0)\n\n### Exemple :\n```sql\nSELECT * FROM users ORDER BY age DESC;\n```",
+            "setup": "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price DECIMAL(10,2), category TEXT); INSERT INTO products (name, price, category) VALUES ('Laptop Pro', 1200.00, 'Electronics'), ('Wireless Mouse', 25.50, 'Electronics'), ('Coffee Mug', 12.00, 'Home'), ('Desk Lamp', 45.00, 'Home'), ('Gaming Chair', 150.00, 'Furniture'), ('Headphones', 80.00, 'Electronics');",
+            "exercise": {
+                "id": "ex_4_order",
+                "instruction": "Listez les produits du plus cher au moins cher.",
+                "hint": "Utilisez ORDER BY price DESC",
+                "placeholder": "SELECT * FROM products ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM products ORDER BY price DESC"
+                }
+            }
+        },
+        {
+            "id": "limit_clause",
+            "title": "Limiter les Résultats",
+            "category": "Tri",
+            "content": "`LIMIT` permet de restreindre le nombre de résultats retournés. C'est très utile pour les classements.\n\n### Exemple :\n```sql\nSELECT * FROM scores ORDER BY points DESC LIMIT 3;\n```",
+            "setup": "CREATE TABLE scores (player TEXT, points INTEGER); INSERT INTO scores VALUES ('Player1', 100), ('Player2', 250), ('Player3', 50), ('Player4', 300), ('Player5', 120);",
+            "exercise": {
+                "id": "ex_limit",
+                "instruction": "Trouvez les 3 meilleurs scores (les plus élevés).",
+                "hint": "Triez par points DESC puis utilisez LIMIT 3",
+                "placeholder": "SELECT * FROM scores ORDER BY ... LIMIT ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM scores ORDER BY points DESC LIMIT 3"
+                }
+            }
+        },
+        {
+            "id": "aggregations_count",
+            "title": "Aggregations : COUNT",
+            "category": "Intermédiaire",
+            "content": "Les fonctions d’agrégation permettent de faire des calculs sur plusieurs lignes.\n\n`COUNT(*)` compte le nombre total de lignes.\n\n### Exemple :\n```sql\nSELECT COUNT(*) FROM users;\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT); INSERT INTO users (username) VALUES ('Alice'), ('Bob'), ('Charlie'), ('Dave'), ('Eve');",
+            "exercise": {
+                "id": "ex_5_count",
+                "instruction": "Combien y a-t-il d'utilisateurs dans la table `users` ?",
+                "hint": "Utilisez COUNT(*)",
+                "placeholder": "SELECT ... FROM users",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT COUNT(*) FROM users"
+                }
+            }
+        },
+        {
+            "id": "aggregations_sum_avg",
+            "title": "SUM et AVG",
+            "category": "Intermédiaire",
+            "content": "On peut aussi sommer (`SUM`) ou faire la moyenne (`AVG`) de valeurs numériques.\n\n### Exemple :\n```sql\nSELECT AVG(prix) FROM produits;\n```",
+            "setup": "CREATE TABLE orders (id INTEGER PRIMARY KEY, amount DECIMAL(10,2)); INSERT INTO orders (amount) VALUES (10.00), (20.00), (30.00), (100.00), (50.50);",
+            "exercise": {
+                "id": "ex_6_sum",
+                "instruction": "Calculez le montant total (`amount`) de toutes les commandes.",
+                "hint": "Utilisez SUM(amount)",
+                "placeholder": "SELECT ... FROM orders",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT SUM(amount) FROM orders"
+                }
+            }
+        },
+        {
+            "id": "group_by",
+            "title": "Regroupement (GROUP BY)",
+            "category": "Intermédiaire",
+            "content": "`GROUP BY` permet de regrouper les lignes ayant la même valeur dans une colonne pour effectuer des calculs sur chaque groupe.\n\n### Exemple :\n```sql\nSELECT category, COUNT(*) FROM products GROUP BY category;\n```",
+            "setup": "CREATE TABLE products (name TEXT, category TEXT); INSERT INTO products VALUES ('Apple', 'Fruit'), ('Banana', 'Fruit'), ('Carrot', 'Vegetable'), ('Steak', 'Meat'), ('Orange', 'Fruit');",
+            "exercise": {
+                "id": "ex_group",
+                "instruction": "Comptez le nombre de produits par catégorie.",
+                "hint": "Utilisez GROUP BY category",
+                "placeholder": "SELECT category, count(*) FROM products ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT category, COUNT(*) FROM products GROUP BY category"
+                }
+            }
+        },
+        {
+            "id": "having_clause",
+            "title": "Filtrer les Groupes (HAVING)",
+            "category": "Intermédiaire",
+            "content": "`HAVING` est comme `WHERE`, mais pour les groupes créés par `GROUP BY`.\n\n### Exemple :\n```sql\nSELECT city, COUNT(*) FROM users GROUP BY city HAVING COUNT(*) > 5;\n```",
+            "setup": "CREATE TABLE orders (customer_id INTEGER, amount DECIMAL); INSERT INTO orders VALUES (1, 100), (1, 200), (2, 50), (3, 300), (3, 100), (3, 50);",
+            "exercise": {
+                "id": "ex_having",
+                "instruction": "Affichez les `customer_id` qui ont passé plus d'une commande (`COUNT(*) > 1`).",
+                "hint": "Groupez par customer_id et utilisez HAVING",
+                "placeholder": "SELECT customer_id, COUNT(*) FROM orders ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id HAVING COUNT(*) > 1"
+                }
+            }
+        },
+        {
+            "id": "joins_intro",
+            "title": "Introduction aux JOINs",
+            "category": "Avancé",
+            "content": "Les `JOIN` permettent de combiner des données de plusieurs tables.\n\nLe `INNER JOIN` ne garde que les lignes qui ont une correspondance dans les deux tables.\n\n### Syntaxe :\n```sql\nSELECT users.username, orders.amount\nFROM users\nINNER JOIN orders ON users.id = orders.user_id;\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT); CREATE TABLE orders (id INTEGER PRIMARY KEY, user_id INTEGER, amount DECIMAL(10,2)); INSERT INTO users (id, username) VALUES (1, 'Alice'), (2, 'Bob'); INSERT INTO orders (user_id, amount) VALUES (1, 50.00), (1, 25.00), (2, 100.00);",
+            "exercise": {
+                "id": "ex_7_join",
+                "instruction": "Affichez le nom de l'utilisateur (`username`) et le montant (`amount`) de chaque commande.",
+                "hint": "Faites un JOIN entre users et orders sur user_id.",
+                "placeholder": "SELECT users.username, orders.amount FROM users JOIN ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT users.username, orders.amount FROM users JOIN orders ON users.id = orders.user_id"
+                }
+            }
+        },
+        {
+            "id": "left_join",
+            "title": "LEFT JOIN",
+            "category": "Avancé",
+            "content": "`LEFT JOIN` retourne toutes les lignes de la table de gauche, même s'il n'y a pas de correspondance à droite (valeurs NULL).\n\n### Exemple :\n```sql\nSELECT users.name, orders.id FROM users LEFT JOIN orders ON ...\n```",
+            "setup": "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT); CREATE TABLE orders (user_id INTEGER, amount DECIMAL); INSERT INTO users (id, username) VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie'); INSERT INTO orders (user_id, amount) VALUES (1, 100);",
+            "exercise": {
+                "id": "ex_left_join",
+                "instruction": "Listez tous les utilisateurs et le montant de leurs commandes (s'ils en ont).",
+                "hint": "Utilisez LEFT JOIN pour inclure les utilisateurs sans commande.",
+                "placeholder": "SELECT users.username, orders.amount FROM users ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT users.username, orders.amount FROM users LEFT JOIN orders ON users.id = orders.user_id"
+                }
+            }
+        },
+        {
+            "id": "subqueries",
+            "title": "Sous-requêtes",
+            "category": "Avancé",
+            "content": "Une sous-requête est une requête imbriquée dans une autre.\n\n### Exemple :\n```sql\nSELECT * FROM products WHERE price > (SELECT AVG(price) FROM products);\n```",
+            "setup": "CREATE TABLE products (name TEXT, price INTEGER); INSERT INTO products VALUES ('A', 10), ('B', 20), ('C', 30), ('D', 40), ('E', 50);",
+            "exercise": {
+                "id": "ex_subquery",
+                "instruction": "Trouvez les produits dont le prix est supérieur à la moyenne des prix.",
+                "hint": "Utilisez (SELECT AVG(price) FROM products)",
+                "placeholder": "SELECT * FROM products WHERE price > ...",
+                "validation": {
+                    "type": "result_match",
+                    "expectedSql": "SELECT * FROM products WHERE price > (SELECT AVG(price) FROM products)"
+                }
+            }
+        },
+        {
+            "id": "insert_dml",
+            "title": "Insérer des Données (INSERT)",
+            "category": "DML",
+            "content": "`INSERT INTO` permet d'ajouter de nouvelles lignes.\n\n### Syntaxe :\n```sql\nINSERT INTO table (col1, col2) VALUES (val1, val2);\n```",
+            "setup": "CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT);",
+            "exercise": {
+                "id": "ex_insert",
+                "instruction": "Ajoutez un étudiant nommé 'Harry' dans la table `students`.",
+                "hint": "INSERT INTO students (name) VALUES ...",
+                "placeholder": "INSERT INTO students ...",
+                "validation": {
+                    "type": "custom_check",
+                    "table": "students",
+                    "condition": "name = 'Harry'",
+                    "expectedSql": "INSERT INTO students (name) VALUES ('Harry')"
+                }
+            }
+        },
+        {
+            "id": "update_dml",
+            "title": "Mettre à jour (UPDATE)",
+            "category": "DML",
+            "content": "`UPDATE` permet de modifier des données existantes. **Attention** : sans `WHERE`, tout est modifié !\n\n### Syntaxe :\n```sql\nUPDATE table SET col = val WHERE condition;\n```",
+            "setup": "CREATE TABLE salaries (employee TEXT, salary INTEGER); INSERT INTO salaries VALUES ('John', 50000), ('Jane', 60000);",
+            "exercise": {
+                "id": "ex_update",
+                "instruction": "Augmentez le salaire de 'John' à 55000.",
+                "hint": "UPDATE salaries SET salary = 55000 WHERE ...",
+                "placeholder": "UPDATE salaries ...",
+                "validation": {
+                    "type": "custom_check",
+                    "table": "salaries",
+                    "condition": "employee = 'John' AND salary = 55000",
+                    "expectedSql": "UPDATE salaries SET salary = 55000 WHERE employee = 'John'"
+                }
+            }
+        },
+        {
+            "id": "create_table",
+            "title": "Créer une Table",
+            "category": "DDL",
+            "content": "`CREATE TABLE` définit une nouvelle table et ses colonnes.\n\n### Exemple :\n```sql\nCREATE TABLE books (\n  id INTEGER PRIMARY KEY,\n  title TEXT,\n  author TEXT\n);\n```",
+            "setup": "",
+            "exercise": {
+                "id": "ex_create",
+                "instruction": "Créez une table `books` avec une colonne `title` (TEXT).",
+                "hint": "CREATE TABLE books (title TEXT ...)",
+                "placeholder": "CREATE TABLE books ...",
+                "validation": {
+                    "type": "schema_check",
+                    "table": "books",
+                    "expectedSql": "CREATE TABLE books (title TEXT)"
+                }
+            }
+        }
+    ]
+}

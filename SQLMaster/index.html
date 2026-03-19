@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Master - Apprenez le SQL</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- SQL.js (WASM) Loader - loading from CDN for simplicity -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Chargement de SQL...</p>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Mobile Menu Button -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <!-- Sidebar Overlay (for mobile) -->
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">SQL Master</span>
+                </div>
+                <button id="close-sidebar" class="close-sidebar">✕</button>
+            </div>
+
+            <a href="../index.html" class="home-link">← Retour à l'accueil</a>
+
+            <nav class="main-nav">
+                <ul id="lesson-list">
+                    <!-- Lessons will be injected here via JS -->
+                    <li class="nav-header">Introduction</li>
+                    <li><button class="nav-btn active" data-id="intro">Bienvenue</button></li>
+                </ul>
+            </nav>
+
+            <div class="user-progress">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="overall-progress" style="width: 0%"></div>
+                </div>
+                <span class="progress-text"><span id="completed-count">0</span>% Complété</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Lesson/Exercise Header -->
+            <header class="content-header">
+                <h1 id="lesson-title">Bienvenue sur SQL Master</h1>
+            </header>
+
+            <!-- Prominent Instruction Box -->
+            <div class="instruction-container">
+                <div class="instruction-label">🎯 Votre Mission</div>
+                <p id="lesson-instruction" class="instruction-text">Sélectionnez une leçon pour commencer.</p>
+
+                <div class="hint-wrapper">
+                    <button id="hint-btn" class="hint-btn locked" disabled>
+                        <span class="lock-icon">🔒</span>
+                        <span id="hint-btn-text">Indice (15s)</span>
+                    </button>
+                    <div id="lesson-hint" class="hint-text hidden">💡 Indice : <span id="hint-content"></span></div>
+                </div>
+            </div>
+
+            <!-- Theory Section -->
+            <section id="theory-section" class="theory-panel">
+                <div class="card glass-panel">
+                    <h2>📚 Théorie</h2>
+                    <div id="theory-content">
+                        <p>Sélectionnez une leçon pour commencer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workspace: Editor + Results -->
+            <section class="workspace-grid">
+                <!-- Editor -->
+                <div class="editor-container glass-panel">
+                    <div class="panel-header">
+                        <span class="panel-label">📝 Éditeur SQL</span>
+                        <button id="run-btn" class="action-btn">
+                            <span class="play-icon">▶</span> Exécuter
+                        </button>
+                    </div>
+                    <textarea id="sql-editor" spellcheck="false"
+                        placeholder="Entrez votre requête SQL ici..."></textarea>
+                    <div id="feedback-msg" class="feedback hidden"></div>
+                </div>
+
+                <!-- Results with Tabs -->
+                <div class="results-container glass-panel">
+                    <div class="panel-tabs">
+                        <button class="tab-btn active" data-tab="results">📊 Résultats</button>
+                        <button class="tab-btn" data-tab="schema">🗂️ Tables</button>
+                        <span id="row-count" class="meta-info">0 lignes</span>
+                    </div>
+
+                    <!-- Results Tab -->
+                    <div id="tab-results" class="tab-content active">
+                        <div class="table-wrapper" id="results-output">
+                            <div class="empty-state">Exécutez une requête pour voir les résultats.</div>
+                        </div>
+                    </div>
+
+                    <!-- Schema Tab -->
+                    <div id="tab-schema" class="tab-content">
+                        <div id="db-schema" class="schema-grid">
+                            <!-- Tables and columns injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Marked for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script src="js/storage.js"></script>
+    <script src="js/sql-loader.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Mobile Sidebar Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeSidebar = document.getElementById('close-sidebar');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+        }
+
+        function closeSidebarFn() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        menuToggle.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFn);
+        overlay.addEventListener('click', closeSidebarFn);
+
+        // Close sidebar when clicking a lesson (mobile)
+        document.getElementById('lesson-list').addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-btn') && window.innerWidth <= 768) {
+                closeSidebarFn();
+            }
+        });
+    </script>
+</body>
+
+</html>

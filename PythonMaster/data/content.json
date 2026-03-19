@@ -1,0 +1,494 @@
+{
+    "lessons": [
+        {
+            "id": "py_1_intro",
+            "title": "Introduction & Print",
+            "category": "1. Fondamentaux",
+            "content": "## Bienvenue sur Python Master 🐍\n\nUn programme Python est une suite d'ordres donnés à l'ordinateur.\n\nPour exécuter une action, on utilise souvent une **fonction**. Imaginez une fonction comme un outil qui a un nom. Pour l'utiliser, on écrit son nom suivi de parenthèses `()`. À l'intérieur, on lui donne les éléments à manipuler.\n\nLa fonction la plus courante pour communiquer est `print()`. Son travail consiste à afficher à l'écran la donnée qu'on lui fournit.\n\n### Exemple :\n```python\n# La fonction s'appelle \"print\", le texte à afficher est entre guillemets\nprint(\"Bonjour tout le monde !\")\n```",
+            "exercise": {
+                "id": "ex_py_1",
+                "instruction": "Affichez le message 'Hello Python' dans la console.",
+                "hint": "Utilisez print(\"...\")",
+                "placeholder": "print(...)",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Hello Python"
+                }
+            }
+        },
+        {
+            "id": "py_1b_input",
+            "title": "Interactivité (Input)",
+            "category": "1. Fondamentaux",
+            "content": "Jusqu'ici, notre programme parle tout seul.\n\nLa fonction `input()` permet de **poser une question** à l'utilisateur et d'attendre sa réponse.\n\n### Exemple :\n```python\nprint(\"Quel est ton nom ?\")\nnom = input()\nprint(f\"Bonjour {nom} !\")\n```",
+            "exercise": {
+                "id": "ex_py_1b",
+                "instruction": "Demandez 'Quel est votre âge ?' avec input() et rangez la réponse dans une variable `age`.",
+                "hint": "age = input()",
+                "placeholder": "print(\"Quel est votre âge ?\")\nage = ...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "age\\s*=\\s*input\\(\\)"
+                }
+            }
+        },
+        {
+            "id": "py_2_vars",
+            "title": "Les Variables",
+            "category": "1. Fondamentaux",
+            "content": "Une variable est comme une boîte portant une étiquette, dans laquelle on stocke une information.\n\n### Exemple :\n```python\nnom = \"Alice\"\nage = 25\nprint(nom)\n```",
+            "exercise": {
+                "id": "ex_py_2",
+                "instruction": "Créez une variable `score` et donnez-lui la valeur `100`.",
+                "hint": "Écrivez score = 100",
+                "placeholder": "# Créez votre variable ici\n",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "score",
+                    "expectedValue": 100
+                }
+            }
+        },
+        {
+            "id": "py_2b_types",
+            "title": "Les Types de Données",
+            "category": "1. Fondamentaux",
+            "content": "Les données ont un type.\n\n- **Texte (String)** : entre guillemets, ex: `\"23\"`.\n- **Nombres (Int)** : sans guillemets, ex: `23`.\n- **Booléens (Bool)** : un interrupteur Vrai/Faux, ex: `True` ou `False`.\n\n*Attention : `23 + 23` fait `46`, mais `\"23\" + \"23\"` fait `\"2323\"` !*",
+            "exercise": {
+                "id": "ex_py_2b",
+                "instruction": "Créez une variable `age_texte` valant \"25\" et une variable `est_majeur` valant True.",
+                "hint": "Attention aux guillemets et à la majuscule de True",
+                "placeholder": "age_texte = ...\nest_majeur = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "est_majeur",
+                    "expectedValue": true
+                }
+            }
+        },
+        {
+            "id": "py_2c_conversion",
+            "title": "Convertir les Textes en Nombres",
+            "category": "1. Fondamentaux",
+            "content": "Attention, `input()` renvoie toujours du **Texte** (`String`). Même si vous tapez 20, Python le voit comme `\"20\"`. Pour faire des maths ou des comparaisons avec, il faut le convertir en **Nombre** (`Int`) avec la fonction `int()`.\n\n### Exemple :\n```python\nage_texte = input(\"Quel âge as-tu ? \")\nage_nombre = int(age_texte)\nprint(age_nombre + 1) # Ne plantera pas !\n```",
+            "exercise": {
+                "id": "ex_py_2c",
+                "instruction": "La variable `annee_texte` contient \"2024\". Convertissez-la en nombre avec int() dans une variable `annee_nombre`.",
+                "hint": "annee_nombre = int(annee_texte)",
+                "placeholder": "annee_texte = \"2024\"\nannee_nombre = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "annee_nombre",
+                    "expectedValue": 2024
+                }
+            }
+        },
+        {
+            "id": "py_3_math",
+            "title": "Opérations Mathématiques",
+            "category": "1. Fondamentaux",
+            "content": "Python est excellent pour les calculs.\n\n- Addition: `+`\n- Soustraction: `-`\n- Multiplication: `*`\n- Division: `/`\n- Puissance: `**`\n\n### Exemple :\n```python\nx = 10 + 5\nprint(x) # Affiche 15\n```",
+            "exercise": {
+                "id": "ex_py_3",
+                "instruction": "Calculez 35 multiplié par 42 et stockez le résultat dans `resultat`.",
+                "hint": "Utilisez l'opérateur *",
+                "placeholder": "resultat = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "resultat",
+                    "expectedValue": 1470
+                }
+            }
+        },
+        {
+            "id": "py_4_strings",
+            "title": "Chaînes de Caractères",
+            "category": "1. Fondamentaux",
+            "content": "Les chaînes (strings) sont du texte entouré de guillemets.\n\nPour glisser facilement des variables dans du texte, on place un `f` (pour **format**) avant les guillemets. Il agit comme un signal : \"Attention Python, ouvre les accolades {}\".\n\n### Exemple :\n```python\nnom = \"Alice\"\nmessage = f\"Bonjour {nom} !\"\n```",
+            "exercise": {
+                "id": "ex_py_4",
+                "instruction": "Créez une variable `nom` avec votre prénom, puis une variable `salutation` qui contient 'Bonjour [nom] !' en utilisant une f-string.",
+                "hint": "salutation = f\"Bonjour {nom} !\"",
+                "placeholder": "nom = \"...\"\nsalutation = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "salutation",
+                    "pattern": "^Bonjour .+ !$"
+                }
+            }
+        },
+        {
+            "id": "py_6_if",
+            "title": "Conditions (If / Else)",
+            "category": "2. Contrôle",
+            "content": "Les conditions permettent d'exécuter du code selon un test. Si Faux (`False`), on passe dans `else`.\n\n🚨 **PIÈGE N°1** : `=` sert à ranger une variable. Pour poser une question (ex: \"est-ce que l'âge vaut 18 ?\"), il faut un DOUBLE égal `==` !\n\n*(Astuce : `>=` (supérieur ou égal) se tape avec deux touches : `>` puis `=`)*\n\n### Exemple :\n```python\nif age >= 18:\n    print(\"Majeur\")\nelse:\n    print(\"Mineur\")\n```",
+            "exercise": {
+                "id": "ex_py_6",
+                "instruction": "Créez une variable `age` à 20. Écrivez une condition qui affiche 'Accès autorisé' si l'âge est >= 18.",
+                "hint": "if age >= 18: print...",
+                "placeholder": "age = 20\nif ...:\n    ...",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Accès autorisé"
+                }
+            }
+        },
+        {
+            "id": "py_7_logical",
+            "title": "Opérateurs Logiques",
+            "category": "2. Contrôle",
+            "content": "On peut combiner des conditions avec `and`, `or`, `not`.\n\n### Exemple :\n```python\nif score > 50 and vie > 0:\n    print(\"Gagné !\")\n```",
+            "exercise": {
+                "id": "ex_py_7",
+                "instruction": "Définissez `pluie = True` et `parapluie = True`. Affichez 'Sortir' si il pleut ET que vous avez un parapluie.",
+                "hint": "if pluie and parapluie:",
+                "placeholder": "pluie = True\nparapluie = True\n...",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Sortir"
+                }
+            }
+        },
+        {
+            "id": "py_8_for",
+            "title": "Boucles For",
+            "category": "2. Contrôle",
+            "content": "Pour répéter une action un nombre connu de fois, on utilise `for` avec `range(N)`.\n\nMagie : `range(3)` fabrique en coulisses la suite de nombres `0, 1, 2`.\n\n### Exemple :\n```python\nfor i in range(3):\n    print(i)\n# Affiche 0, 1, 2\n```",
+            "exercise": {
+                "id": "ex_py_8",
+                "instruction": "Affichez les nombres de 0 à 4 inclus.",
+                "hint": "Utilisez range(5)",
+                "placeholder": "for ... in ...:\n    ...",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "0\n1\n2\n3\n4"
+                }
+            }
+        },
+        {
+            "id": "py_9_while",
+            "title": "Boucles While",
+            "category": "2. Contrôle",
+            "content": "`while` répète une action tant qu'une condition est vraie.\n\n### Exemple :\n```python\nx = 5\nwhile x > 0:\n    print(x)\n    x -= 1\n```",
+            "exercise": {
+                "id": "ex_py_9",
+                "instruction": "Créez une variable `n = 3` et affichez sa valeur tant qu'elle est supérieure à 0, en décrémentant `n` à chaque tour.",
+                "hint": "N'oubliez pas n -= 1 sinon boucle infinie !",
+                "placeholder": "n = 3\nwhile ...:\n    ...",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "3\n2\n1"
+                }
+            }
+        },
+        {
+            "id": "py_10_lists",
+            "title": "Listes : Création",
+            "category": "3. Structures",
+            "content": "Une liste stocke plusieurs éléments dans l'ordre.\n\n**Attention** : En Python, on commence à compter à partir de **zéro** ! (Comme le rez-de-chaussée d'un ascenseur).\n\n### Syntaxe :\n```python\nfruits = [\"Pomme\", \"Banane\", \"Cerise\"]\n# L'index 0 donne le premier élément :\nprint(fruits[0]) # Affiche Pomme\n```",
+            "exercise": {
+                "id": "ex_py_10",
+                "instruction": "Créez une liste `nombres` contenant les valeurs 10, 20 et 30.",
+                "hint": "nombres = [10, 20, 30]",
+                "placeholder": "nombres = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "nombres",
+                    "expectedValue": [
+                        10,
+                        20,
+                        30
+                    ]
+                }
+            }
+        },
+        {
+            "id": "py_11_list_methods",
+            "title": "Méthodes de Listes",
+            "category": "3. Structures",
+            "content": "On peut modifier une liste avec des méthodes :\n- `.append(x)` : Ajoute à la fin.\n- `.pop()` : Retire le dernier élément.\n- `len(liste)` : Donne la taille.\n\n### Exemple :\n```python\nl.append(5)\n```",
+            "exercise": {
+                "id": "ex_py_11",
+                "instruction": "Partant d'une liste vide `panier = []`, ajoutez 'Pomme' puis 'Poire'.",
+                "hint": "Utilisez panier.append(...)",
+                "placeholder": "panier = []\n...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "panier",
+                    "expectedValue": [
+                        "Pomme",
+                        "Poire"
+                    ]
+                }
+            }
+        },
+        {
+            "id": "py_12_for_lists",
+            "title": "Boucle sur Liste",
+            "category": "3. Structures",
+            "content": "La boucle `for` brille vraiment sur les listes ! Elle permet de passer sur chaque élément un par un, sans s'occuper des index.\n\n### Exemple :\n```python\nfruits = [\"Pomme\", \"Banane\"]\nfor fruit in fruits:\n    print(\"J'aime la \" + fruit)\n```",
+            "exercise": {
+                "id": "ex_py_12",
+                "instruction": "Affichez chaque couleur de la liste `couleurs` l'une après l'autre.",
+                "hint": "for c in couleurs: print(c)",
+                "placeholder": "couleurs = [\"Rouge\", \"Bleu\", \"Vert\"]\nfor ... in ...:\n    ...",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Rouge\nBleu\nVert"
+                }
+            }
+        },
+        {
+            "id": "py_13_dicts",
+            "title": "Dictionnaires",
+            "category": "3. Structures",
+            "content": "Les dictionnaires stockent des données avec des clés au lieu d'index.\n\n### Exemple :\n```python\nuser = {\"nom\": \"Alice\", \"age\": 25}\nprint(user[\"nom\"])\n```",
+            "exercise": {
+                "id": "ex_py_13",
+                "instruction": "Créez un dictionnaire `livre` avec les clés 'titre' (\"1984\") et 'auteur' (\"Orwell\").",
+                "hint": "livre = {\"titre\": ..., ...}",
+                "placeholder": "livre = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "livre",
+                    "expectedValue": {
+                        "titre": "1984",
+                        "auteur": "Orwell"
+                    }
+                }
+            }
+        },
+        {
+            "id": "py_14_def",
+            "title": "Fonctions",
+            "category": "4. Fonctions",
+            "content": "Depuis le début, vous utilisez des fonctions prêtes à l'emploi comme `print()`.\n\nMaintenant, nous allons apprendre à **créer** nos propres fonctions, qui sont des blocs de code réutilisables.\n\n### Syntaxe :\n```python\ndef saluer():\n    print(\"Bonjour !\")\n\nsaluer() # Appel\n```",
+            "exercise": {
+                "id": "ex_py_14",
+                "instruction": "Définissez une fonction `dire_bonjour` qui affiche 'Salut !' et appelez-la.",
+                "hint": "def dire_bonjour(): ...",
+                "placeholder": "def dire_bonjour():\n    ...\n\ndire_bonjour()",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Salut !"
+                }
+            }
+        },
+        {
+            "id": "py_15_args",
+            "title": "Arguments & Retour",
+            "category": "4. Fonctions",
+            "content": "Les fonctions peuvent accepter des paramètres et retourner un résultat.\n\n### Exemple :\n```python\ndef carre(x):\n    return x * x\n\nres = carre(5)\n```",
+            "exercise": {
+                "id": "ex_py_15",
+                "instruction": "Créez une fonction `ajouter(a, b)` qui renvoie la somme de a et b. Testez avec `res = ajouter(3, 4)`.",
+                "hint": "return a + b",
+                "placeholder": "def ajouter(a, b):\n    ...\n\nres = ajouter(3, 4)",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "res",
+                    "expectedValue": 7
+                }
+            }
+        },
+        {
+            "id": "py_17_class",
+            "title": "POO : Classes & Objets",
+            "category": "5. POO",
+            "content": "Une **Classe** est un plan de construction. Un **Objet** est une instance de ce plan.\n\n### Exemple :\n```python\nclass Chat:\n    pass\n\nminou = Chat()\n```",
+            "exercise": {
+                "id": "ex_py_17",
+                "instruction": "Définissez une classe `Personne` (vide pour l'instant) et créez une instance nommée `p1`.",
+                "hint": "class Personne: pass",
+                "placeholder": "class Personne:\n    pass\n\np1 = ...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "class Personne",
+                    "varCheck": {
+                        "name": "p1",
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        {
+            "id": "py_18_init",
+            "title": "POO : Le Constructeur",
+            "category": "5. POO",
+            "content": "La méthode spéciale `__init__` s'active à la naissance de l'objet, pour l'initialiser.\n\nLe mot `self` est crucial ! Il veut dire **\"moi-même\"**. Si la classe est \"Chat\", `self.nom = nom` veut dire : \"Donne-MOI ce nom pour m'identifier parmi les autres\".\n\n### Exemple :\n```python\nclass Chat:\n    def __init__(self, nom):\n        self.nom = nom\n```",
+            "exercise": {
+                "id": "ex_py_18",
+                "instruction": "Créez une classe `Voiture` dont le constructeur prend `marque` en paramètre. Créez une instance `v1` de marque 'Toyota'.",
+                "hint": "def __init__(self, marque): self.marque = marque",
+                "placeholder": "class Voiture:\n    def __init__(self, ...):\n        ...\n\nv1 = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "v1.marque",
+                    "expectedValue": "Toyota"
+                }
+            }
+        },
+        {
+            "id": "py_19_methods",
+            "title": "POO : Méthodes",
+            "category": "5. POO",
+            "content": "Les méthodes sont des fonctions qui agissent sur l'objet (`self`).\n\n### Exemple :\n```python\nclass Chat:\n    def miauler(self):\n        print(\"Miaou !\")\n```",
+            "exercise": {
+                "id": "ex_py_19",
+                "instruction": "Ajoutez une méthode `demarrer()` à la classe `Voiture` qui affiche 'Vroum'. Créez une instance et appelez la méthode.",
+                "hint": "def demarrer(self): print('Vroum')",
+                "placeholder": "class Voiture:\n    def demarrer(self):\n        ...\n\nv = Voiture()\nv.demarrer()",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Vroum"
+                }
+            }
+        },
+        {
+            "id": "py_20_inheritance",
+            "title": "POO : Héritage",
+            "category": "5. POO",
+            "content": "Une classe peut hériter des fonctionnalités d'une autre.\n\n### Exemple :\n```python\nclass Animal:\n    def manger(self): ...\n\nclass Chien(Animal): # Hérite de Animal\n    def aboyer(self): ...\n```",
+            "exercise": {
+                "id": "ex_py_20",
+                "instruction": "Créez une classe `Moto` qui hérite de `Voiture`. Ajoutez-lui une méthode `cabrer()`. La classe `Voiture` doit avoir `demarrer()`.",
+                "hint": "class Moto(Voiture):",
+                "placeholder": "class Voiture:\n    def demarrer(self):\n        print(\"Vroum\")\n\nclass Moto(...):\n    ...\n\nm = Moto()\nm.demarrer()\nm.cabrer()",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "class Moto\\(Voiture\\):"
+                }
+            }
+        },
+        {
+            "id": "py_23_imports",
+            "title": "Imports de Modules",
+            "category": "6. Modules & Fichiers",
+            "content": "Python possède une riche bibliothèque standard. On y accède avec `import`.\n\n### Exemple :\n```python\nimport math\nprint(math.sqrt(16))\n```",
+            "exercise": {
+                "id": "ex_py_23",
+                "instruction": "Importez le module `math` et stockez la valeur de Pi (`math.pi`) dans une variable `p`.",
+                "hint": "import math",
+                "placeholder": "import ...\np = ...",
+                "validation": {
+                    "type": "variable_check",
+                    "varName": "p",
+                    "expectedValue": 3.141592653589793
+                }
+            }
+        },
+        {
+            "id": "py_25_files",
+            "title": "Écrire dans un Fichier",
+            "category": "6. Modules & Fichiers",
+            "content": "Pour manipuler un fichier, on l'ouvre avec la fonction `open()`. Le mode `'w'` (Write) signifie que l'on veut **écrire** dedans.\n\nL'instruction magique `with` permet de **fermer le fichier automatiquement** à la fin du bloc (comme quand on quitte une pièce et que la lumière s'éteint toute seule).\n\n### Exemple :\n```python\n# Crée ou écrase le fichier\nwith open('mon_journal.txt', 'w') as f:\n    f.write(\"Cher journal...\")\n```",
+            "exercise": {
+                "id": "ex_py_25",
+                "instruction": "Créez un fichier nommé `info.txt` en mode écriture ('w') et écrivez-y le texte 'Python Master'.",
+                "hint": "open('info.txt', 'w')",
+                "placeholder": "with open(..., ...) as f:\n    f.write(...)",
+                "validation": {
+                    "type": "file_check",
+                    "fileName": "info.txt",
+                    "expectedContent": "Python Master"
+                }
+            }
+        },
+        {
+            "id": "py_25b_files_read",
+            "title": "Lire un Fichier",
+            "category": "6. Modules & Fichiers",
+            "content": "Une fois un fichier créé, on veut souvent le lire. Pour cela, on utilise le mode `'r'` (Read, pour Lecture).\n\nLa méthode `.read()` récupère tout le contenu d'un coup sous forme de texte.\n\n### Exemple :\n```python\nwith open('mon_journal.txt', 'r') as f:\n    contenu = f.read()\n    print(contenu)\n```",
+            "exercise": {
+                "id": "ex_py_25b",
+                "instruction": "Ouvrez le fichier `notes.txt` en mode lecture ('r'), lisez-le avec la méthode `.read()` et affichez son contenu.",
+                "hint": "Utilisez print(f.read())",
+                "placeholder": "with open(\"notes.txt\", ...) as f:\n    ...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "f\\.read\\(\\)"
+                }
+            }
+        },
+        {
+            "id": "py_25c_files_append",
+            "title": "Ajouter du Texte (Append)",
+            "category": "6. Modules & Fichiers",
+            "content": "Vous l'avez peut-être remarqué : si on utilise le mode écriture `'w'`, le fichier précédent est **totalement détruit et remplacé** !\n\nPour rajouter une ligne à la fin d'un fichier existant sans l'effacer, on utilise le mode `'a'` (Append = Ajouter).\n\n### Exemple :\n```python\nwith open('mon_journal.txt', 'a') as f:\n    f.write(\"\\nJ'ajoute une ligne !\")\n```",
+            "exercise": {
+                "id": "ex_py_25c",
+                "instruction": "Ouvrez `noms.txt` en mode ajout ('a') et ajoutez-y le nom 'Bob'.",
+                "hint": "open('noms.txt', 'a')",
+                "placeholder": "with open(..., ...) as f:\n    ...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "open\\(['\"]noms\\.txt['\"],\\s*['\"]a['\"]\\)"
+                }
+            }
+        },
+        {
+            "id": "py_26_errors",
+            "title": "Gestion d'Erreurs (Try/Except)",
+            "category": "6. Modules & Fichiers",
+            "content": "Pour éviter qu'un programme plante, on capture les exceptions.\n\n### Exemple :\n```python\ntry:\n    res = 1 / 0\nexcept ZeroDivisionError:\n    print(\"Erreur !\")\n```",
+            "exercise": {
+                "id": "ex_py_26",
+                "instruction": "Tentez de diviser 10 par 0 dans un bloc `try`. Capturez l'erreur et affichez 'Impossible'.",
+                "hint": "except ZeroDivisionError:",
+                "placeholder": "try:\n    ...\nexcept ...:\n    ...",
+                "validation": {
+                    "type": "output_match",
+                    "expectedOutput": "Impossible"
+                }
+            }
+        },
+        {
+            "id": "py_30_numpy",
+            "title": "NumPy : Les Tableaux Puissants",
+            "category": "7. Data Science",
+            "content": "Python est le roi de la Data Science, grâce à des bibliothèques externes.\n\n**NumPy** permet de manipuler d'immenses listes de nombres (tableaux ou arrays) et de faire des calculs ultra-rapides. Contrairement aux listes classiques, on peut multiplier tout le tableau d'un coup !\n\n### Exemple :\n```python\nimport numpy as np\ntableau = np.array([1, 2, 3])\nprint(tableau * 10) # [10 20 30] - Magique !\n```",
+            "exercise": {
+                "id": "ex_py_30",
+                "instruction": "Créez un tableau NumPy `t` contenant `[10, 20]` et multipliez-le par 5 dans une variable `res`.",
+                "hint": "res = t * 5",
+                "placeholder": "import numpy as np\nt = np.array([10, 20])\n... = ...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "t\\s*\\*\\s*5"
+                }
+            }
+        },
+        {
+            "id": "py_31_pandas",
+            "title": "Pandas : Analyse de Données",
+            "category": "7. Data Science",
+            "content": "**Pandas** est le tableur (comme Excel) de Python. Il manipule des tableaux de données appelés **DataFrames**.\n\nC'est l'outil parfait pour filtrer, grouper et nettoyer des milliers de colonnes très facilement.\n\n### Exemple :\n```python\nimport pandas as pd\ndata = {\"Nom\": [\"Alice\", \"Bob\"], \"Age\": [25, 30]}\ndf = pd.DataFrame(data)\nprint(df)\n```",
+            "exercise": {
+                "id": "ex_py_31",
+                "instruction": "Transformez le dictionnaire `data_villes` en DataFrame Pandas dans une variable appelée `df`.",
+                "hint": "df = pd.DataFrame(data_villes)",
+                "placeholder": "import pandas as pd\ndata_villes = {\"Ville\": [\"Paris\", \"Lyon\"], \"Pop\": [2, 0.5]}\ndf = ...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "pd\\.DataFrame\\(data_villes\\)"
+                }
+            }
+        },
+        {
+            "id": "py_32_matplotlib",
+            "title": "Matplotlib : Graphiques",
+            "category": "7. Data Science",
+            "content": "Après avoir analysé les données (ex: avec Pandas), on veut souvent les visualiser.\n\n**Matplotlib** permet de tracer des courbes, des nuages de points ou des histogrammes avec seulement quelques instructions.\n\n### Exemple :\n```python\nimport matplotlib.pyplot as plt\nx = [1, 2, 3]\ny = [10, 20, 15]\nplt.plot(x, y)\nplt.show()\n```",
+            "exercise": {
+                "id": "ex_py_32",
+                "instruction": "Tracez une courbe en utilisant les listes `annees` et `ventes` avec la fonction `plot()`.",
+                "hint": "plt.plot(annees, ventes)",
+                "placeholder": "import matplotlib.pyplot as plt\nannees = [2020, 2021, 2022]\nventes = [100, 150, 200]\n# Tracez la courbe ci-dessous :\n...",
+                "validation": {
+                    "type": "code_pattern",
+                    "pattern": "plt\\.plot\\(annees,\\s*ventes\\)"
+                }
+            }
+        }
+    ]
+}

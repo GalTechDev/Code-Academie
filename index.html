@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Academy - Accueil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Outfit', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .course-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* SQL Theme */
+        .card-sql::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card-sql:hover::before {
+            opacity: 1;
+        }
+
+        .icon-sql {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+        }
+
+        .tag-sql {
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+        }
+
+        /* Python Theme */
+        .card-python::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card-python:hover::before {
+            opacity: 1;
+        }
+
+        .icon-python {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
+        }
+
+        .tag-python {
+            background: rgba(234, 179, 8, 0.2);
+            color: #fbbf24;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .course-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-section {
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+
+        .fill-sql {
+            background: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        .fill-python {
+            background: #fbbf24;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        .reset-course-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+
+        .course-card:hover .reset-course-btn {
+            opacity: 1;
+        }
+
+        .reset-course-btn:hover {
+            background: rgba(255, 50, 50, 0.2);
+            color: #ff5555;
+            border-color: rgba(255, 50, 50, 0.3);
+            transform: rotate(180deg);
+        }
+
+        /* Custom Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-box h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .modal-btn.cancel:hover {
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+
+        .modal-btn.confirm {
+            background: #ef4444;
+            color: white;
+        }
+
+        .modal-btn.confirm:hover {
+            background: #dc2626;
+        }
+
+        /* ========== RESPONSIVE / MOBILE ========== */
+        @media (max-width: 768px) {
+            body {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .course-card {
+                padding: 1.5rem;
+            }
+
+            .course-title {
+                font-size: 1.4rem;
+            }
+
+            .course-desc {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .reset-course-btn {
+                opacity: 1;
+            }
+
+            .modal-box {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Code Académie</h1>
+
+    <!-- Custom Modal -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>⚠️ Réinitialiser</h3>
+            <p id="modal-message">Êtes-vous sûr de vouloir réinitialiser ce cours ?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeModal()">Annuler</button>
+                <button class="modal-btn confirm" id="modal-confirm-btn">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="courses-grid">
+        <!-- SQL Master -->
+        <div class="course-card card-sql" onclick="window.location='SQLMaster/index.html'">
+            <button class="reset-course-btn" onclick="openResetModal('sql_master_progress', 'SQL Master', event)"
+                title="Réinitialiser ce cours">↺</button>
+            <div class="course-header">
+                <div class="icon-sql">⚡</div>
+                <span class="course-tag tag-sql">Base de Données</span>
+            </div>
+            <h2 class="course-title">SQL Master</h2>
+            <p class="course-desc">Maîtrisez les bases de données relationnelles. De SELECT à la création de tables
+                complexes.</p>
+
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Progression</span>
+                    <span id="prog-sql-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="prog-sql-fill" class="progress-bar-fill fill-sql" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Python Master -->
+        <div class="course-card card-python" onclick="window.location='PythonMaster/index.html'">
+            <button class="reset-course-btn" onclick="openResetModal('python_master_progress', 'Python Master', event)"
+                title="Réinitialiser ce cours">↺</button>
+            <div class="course-header">
+                <div class="icon-python">🐍</div>
+                <span class="course-tag tag-python">Programmation</span>
+            </div>
+            <h2 class="course-title">Python Master</h2>
+            <p class="course-desc">Apprenez le langage le plus populaire au monde. Des bases aux classes et modules.</p>
+
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Progression</span>
+                    <span id="prog-python-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="prog-python-fill" class="progress-bar-fill fill-python" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const COUNTS = {
+            sql: 17,
+            python: 28
+        };
+
+        const Storage = {
+            getCompleted: (key) => {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : [];
+            },
+            save: (key, data) => {
+                localStorage.setItem(key, JSON.stringify(data));
+            },
+            clear: (key) => {
+                localStorage.removeItem(key);
+            }
+        };
+
+        let pendingResetKey = null;
+
+        function openResetModal(key, name, event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            pendingResetKey = key;
+            document.getElementById('modal-message').textContent =
+                `Voulez-vous vraiment réinitialiser la progression de ${name} ?`;
+            document.getElementById('confirm-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('confirm-modal').classList.remove('active');
+            pendingResetKey = null;
+        }
+
+        document.getElementById('modal-confirm-btn').addEventListener('click', function () {
+            if (pendingResetKey) {
+                Storage.clear(pendingResetKey);
+                updateProgress();
+            }
+            closeModal();
+        });
+
+        // Close modal if clicking outside
+        document.getElementById('confirm-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        function migrateProgress() {
+            const sqlData = Storage.getCompleted('sql_master_progress');
+            const pythonData = Storage.getCompleted('python_master_progress');
+
+            const pythonIds = sqlData.filter(id => id.startsWith('ex_py_') || id.startsWith('py_'));
+
+            if (pythonIds.length > 0) {
+                const newPythonData = [...new Set([...pythonData, ...pythonIds])];
+                Storage.save('python_master_progress', newPythonData);
+
+                const newSqlData = sqlData.filter(id => !id.startsWith('ex_py_') && !id.startsWith('py_'));
+                Storage.save('sql_master_progress', newSqlData);
+            }
+        }
+
+        function updateProgress() {
+            migrateProgress();
+
+            const sqlCompleted = Storage.getCompleted('sql_master_progress').length;
+            const sqlPercent = Math.round((sqlCompleted / COUNTS.sql) * 100);
+            document.getElementById('prog-sql-text').textContent = `${sqlPercent}%`;
+            document.getElementById('prog-sql-fill').style.width = `${sqlPercent}%`;
+
+            const pyCompleted = Storage.getCompleted('python_master_progress').length;
+            const pyPercent = Math.round((pyCompleted / COUNTS.python) * 100);
+            document.getElementById('prog-python-text').textContent = `${pyPercent}%`;
+            document.getElementById('prog-python-fill').style.width = `${pyPercent}%`;
+        }
+
+        setTimeout(updateProgress, 100);
+    </script>
+</body>
+
+</html>
